@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { crear } from "../controllers/createUser";
+import { UserCreate, UserPut } from "../controllers/createUser";
+
 export const UserRouter = Router();
 
 
-UserRouter.post("/create", crear)
-
-// export { UserRouter }
+UserRouter.post("/create", UserCreate)
+UserRouter.post("/put/:id", UserPut)
