@@ -6,5 +6,7 @@ const router = Router();
 
 router.use("/user", UserRouter)
 router.use("/product", ProductRouter)
+router.use("/client", ProductRouter)
+
 
 export default router;
