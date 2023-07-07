@@ -17,7 +17,7 @@ export const clientCreate = async (req: Request, res: Response) => {
           };
       
     
-        if (!name || !lastname || !phonenumber || !city || !adress )
+        if (!name || !lastname || !phonenumber || !city || !adress)
           return res.json({ msg: "Missing required fields" });
     
        
@@ -78,13 +78,26 @@ export const clientCreate = async (req: Request, res: Response) => {
       }
 };
 
-// export const clientPut = async (req: Request, res: Response) => { 
+ export const clientPut = async (req: Request, res: Response) => { 
+  const { id } = req.params;
+  const { name, lastname, phonenumber, city, adress  } = req.body;
 
-// };
+  try {
+    if (!name && !lastname && !phonenumber && !city && !adress)
+      return res.json({ msg: "Missing required fields" });
+      const ClientDB = await Client.findOne({ where: { email: `${phonenumber}` } });
 
-// export const getClients = async (req: Request, res: Response) => { 
+    if (ClientDB) throw Error("The phonenumber already exists");
 
-// };
+    await Client.update({ name, lastname, phonenumber, city, adress }, { where: { id } });
+
+    return res.status(200).json("Usuario actualizado");
+    
+  } catch (error) {
+    return res.json({ msg: `Error 404 - ${error}` });
+  }
+ }
+
 
 // export const getClientParams = async (req: Request, res: Response) => { 
 
